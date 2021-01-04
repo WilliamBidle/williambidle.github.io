@@ -19,18 +19,27 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Salty Peach Music Reviews
-email: wkb15@scarletmail.rutgers.edu inz3@scarletmail.rutgers.edu
+email: saltypeach@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "https://williambidle.github.io/" # the subpath of your site, e.g. /blog
-url: "https://williambidle.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+  We review music across many different genres.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://williambidle.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
+linkedin_username: williambidle
+
+# Added authors which is included in the footer.html file
+author: William Bidle and Ilana Zane
+
+# Added a copyright by adding code to the footer.html file
+copyright: "Salty Peach Reviews"
+
+#title-logo: /images/title-logo.jpg
 
 # Build settings
-theme: jekyll-theme-merlot
+
+# We no longer need to specify the theme since it has all been moved to the folder we are working in
+# theme: minima
 plugins:
   - jekyll-feed
 
