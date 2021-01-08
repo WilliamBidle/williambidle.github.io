@@ -39,7 +39,7 @@ copyright: "The Standard Pair"
 # Build settings
 
 # We no longer need to specify the theme since it has all been moved to the folder we are working in
-# theme: minima
+theme: minima
 plugins:
   - jekyll-feed
 
