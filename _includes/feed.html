@@ -1,0 +1,43 @@
+<section class="{{sectionName}}">
+  {%- assign feedPosts = site.posts | where: 'categories', feedType -%}
+
+  {%- for post in feedPosts offset: displayOffset limit: displayLimit -%}
+  <div class="feed-card">
+
+    <div class="card-image">
+      {%- assign postImage = post.image | relative_url -%}
+      {%- if postImage -%}
+        <img src="{{post.image}}" alt="" class="featured-image">
+      {%- endif -%}
+    </div>
+
+    <div class="card-content">
+
+      <div class="title">
+        {%- assign postTitle = post.title | escape -%}
+        {%- assign postUrl = post.url | relative_url -%}
+        <span class="title"><a href="{{postUrl}}" class="post-link">{{postTitle}}</a></span>
+      </div>
+
+      <div class="excerpt">
+        {%- assign postExcerpt = post.excerpt -%}
+        <span class="excerpt">{{postExcerpt}}</span>
+      </div>
+
+      <div class="author">
+        {%- assign postAuthor = post.author -%}
+        <span class="author">By: {{postAuthor}}</span>
+      </div>
+
+      <div class="date">
+        {%- assign postDate = post.date | date: "%b %d, %Y" -%}
+        <span class="date">{{postDate}}</span>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  {%- endfor -%}
+</section>

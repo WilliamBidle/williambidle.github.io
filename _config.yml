@@ -18,23 +18,23 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Salty Peach Music Reviews
-email: saltypeach@gmail.com
+title: The Standard Pair
+email: thestandardpair@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  We review music across many different genres.
+  Welcome to our music review blog! We write about music we enjoy listening to across many different genres.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://williambidle.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
-github_username:  jekyll
-linkedin_username: williambidle
+# github_username:  jekyll
+# linkedin_username: williambidle
 
 # Added authors which is included in the footer.html file
-author: William Bidle and Ilana Zane
+# author: William Bidle and Ilana Zane
 
 # Added a copyright by adding code to the footer.html file
-copyright: "Salty Peach Reviews"
+copyright: "The Standard Pair"
 
-#title-logo: /images/title-logo.jpg
+# title-logo: /images/title-logo.jpg
 
 # Build settings
 

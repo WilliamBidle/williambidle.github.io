@@ -253,3 +253,15 @@
     }
   }
 }
+
+.featured-image-post {
+  width: 50%;
+  height: 50%;
+}
+
+.blog-roll-image {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  float: left;
+}
