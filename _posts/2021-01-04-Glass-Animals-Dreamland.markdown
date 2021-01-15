@@ -3,7 +3,7 @@ layout: post
 title:  "Glass Animals - Dreamland"
 date:   2021-01-04 13:03:00 -0500
 category: album-reviews
-author: William Bidle and Ilana Zane
+author: William Bidle
 image: /assets/images/DREAMLAND-album-artwork.jpg
 ---
 Whether or not you are familiar with Glass Animals and their music, their third studio album Dreamland is a must listen. Following up a concept album focused mainly around the stories of others in _How to Be a Human Being_ (_HTBAHB_), _Dreamland_ is in contrast completely focused around the past experiences of lead singer Dave Bailey. This album serves as a triumph of Glass Animals’ ability to adapt to some of the more mainstream genres of today, while still staying true to their usual sound that fans originally fell in love with. In a reality consumed by a global pandemic and other social issues, Dreamland provides us with a much needed escape.

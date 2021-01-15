@@ -1,11 +1,11 @@
 // this is the stying for a featured post
 .featured-post .feed-card {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 300px;
+  grid-template-columns: 350px 1fr;
+  grid-template-rows: 350px;
   column-gap: 10px;
   margin-top: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   border-top: lightgray;
   border-width: 1px;
   border-top-style: solid;
@@ -50,7 +50,7 @@
 
   .post-link {
     font-weight: bold;
-    font-size: 20pt;
+    font-size: 24pt;
     &:link { color: black;}
     &:visited { color: black;}
     &:hover { color: black;}
@@ -58,8 +58,8 @@
   }
 
   .excerpt {
-    font-style: italic;
-    font-size: 12pt;
+    // font-style: italic;
+    font-size: 13pt;
   }
 
   .author {
@@ -80,10 +80,11 @@
 // this is the styling for the feed
 .feed .feed-card {
   display: grid;
-  grid-template-columns: 150px 1fr;
-  grid-template-rows: 150px;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 200px;
   column-gap: 10px;
   margin-top: 10px;
+  margin-bottom: 50px;
   border-top: lightgray;
   border-width: 1px;
   border-top-style: solid;
@@ -134,8 +135,8 @@
   }
 
   .excerpt {
-    font-style: italic;
-    font-size: 10pt;
+    // font-style: italic;
+    font-size: 11pt;
   }
 
   .author {

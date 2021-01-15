@@ -7,6 +7,26 @@ layout: default
     <h1 class="post-title">{{ page.title | escape }}</h1>
   </header>
 
+  <!-- This is for the about section, where we format pictures of ourselves and a breif description of the website -->
+  {%- if page.image_Will -%}
+
+    <div class="Will">
+      <img src="{{- page.image_Will | relative_url -}}" alt ="" class="Will">
+      <p>William Bidle</p>
+    </div>
+
+  {%- endif -%}
+
+
+
+  {%- if page.image_Ilana -%}
+    <div class="Ilana">
+      <img src="{{- page.image_Ilana | relative_url -}}" alt ="" class="Ilana">
+      <p>Ilana Zane</p>
+    </div>
+  {%- endif -%}
+  <!-- ----------------------------------------------------------------------------------------------------------- -->
+
   <div class="post-content">
     {{ content }}
   </div>
@@ -28,4 +48,5 @@ layout: default
     {%- assign sectionName = "feed" -%}
     {% include feed.html  %}
   {%-  endif -%}
+
 </article>
