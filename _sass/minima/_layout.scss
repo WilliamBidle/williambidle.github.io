@@ -275,12 +275,9 @@
 
 
 
-.img-with-text img {
-    display: block;
-    margin: 0 auto;
-}
 
 
+// this is for Will's about picture
 .Will {
   text-align: center;
   font-size: 14pt;
@@ -290,6 +287,7 @@
   float: left;
 }
 
+// this is for Ilana's about picture
 .Ilana {
   text-align: center;
   font-size: 14pt;
@@ -297,4 +295,20 @@
   border-radius: 50%;
   // filter: grayscale(100%);
   float: right;
+}
+
+// this is for the tag section as a whole (i.e. spacing)
+.Tags {
+
+  margin-top: 10px;
+  margin-bottom: 50px;
+  border-top: lightgray;
+  border-width: 1px;
+  border-top-style: solid;
+
+  // these are for the individual tags
+  .tags {
+    font-size: 12pt;
+    font-style: italic;
+  }
 }

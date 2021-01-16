@@ -26,8 +26,12 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://williambidle.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: thestandardpair
 instagram_username: thestandardpair
-# github_username:  jekyll
-# linkedin_username: williambidle
+
+# Disqus Comments
+disqus:
+  # Leave shortname blank to disable comments site-wide.
+  # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
+  shortname: the-standard-pair
 
 # Added authors which is included in the footer.html file
 # author: William Bidle and Ilana Zane

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Up-and-Coming
+title: Up and Coming
 feed-type: up-and-coming
 permalink: /feed/up-and-coming
 ---
