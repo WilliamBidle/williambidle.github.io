@@ -33,8 +33,8 @@ disqus:
   # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
   shortname: the-standard-pair
 
-# Added authors which is included in the footer.html file
-# author: William Bidle and Ilana Zane
+# Google Analytics
+google_analytics: UA-187460509-1
 
 # Added a copyright by adding code to the footer.html file
 copyright: "The Standard Pair"
