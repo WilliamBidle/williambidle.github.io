@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Machine Gun Kelly - Tickets to My Downfall"
+title:  "Artist - Album Name"
 date:   2021-01-03 13:03:00 -0500
 category: album-reviews
-author: William Bidle and Ilana Zane
-image: /assets/images/Tickets-To-My-Downfall-1.jpg
+author: ???
+image: /assets/images/Lemon-Boy.jpg
 ---
 The next review!?!?

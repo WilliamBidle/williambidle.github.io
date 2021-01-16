@@ -6,6 +6,4 @@ image_Will: /images/William-Bidle.jpg
 image_Ilana: /images/Ilana-Zane.jpg
 ---
 
-Welcome to The Standard Pair! This is our blog where we talk about some music we listen to.
-
-Talk about different categories and how to navigate the blog?
+Welcome to The Standard Pair! We love music so we decided to make this website to talk about some of the things we listen to. The genres you can expect us to discuss range from indie and alt-rock, to electronic and hip-hop. In need of a new album to listen to? How about an up-and-coming artist? Well then you are in the right place.
