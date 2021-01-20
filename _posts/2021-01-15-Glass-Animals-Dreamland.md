@@ -6,7 +6,7 @@ category: album-reviews
 author: William Bidle
 image: /assets/images/DREAMLAND-album-artwork.jpg
 comments:  true
-tags: glass-animals indie
+tags: glass-animals indie album-review
 ---
 Whether or not you are familiar with Glass Animals and their music, their third studio album _Dreamland_ is a must listen. Following up a concept album focused mainly around the stories of others in _How to Be a Human Being_ (_HTBAHB_), _Dreamland_ is in contrast completely focused around the past experiences of lead singer Dave Bailey. This album serves as a triumph of Glass Animals’ ability to adapt to some of the more mainstream genres of today, while still staying true to their usual sound that fans originally fell in love with. In a reality consumed by a global pandemic and other social issues, _Dreamland_ provides us with a much needed escape.
 
