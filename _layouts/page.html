@@ -33,7 +33,9 @@ layout: default
 
   {%- assign feedType = page.feed-type -%}
   {%- if feedType == "album-reviews" or feedType == "guest-reviews" or feedType == "up-and-coming" -%}
-    <h2>Featured Post</h2>
+    <div class="post-heading">
+      <h2>Featured Post</h2>
+    </div>
     {%- assign displayOffset = 0 -%}
     {%- assign displayLimit = 1 -%}
     {%- assign sectionName = "featured-post" -%}
@@ -42,7 +44,9 @@ layout: default
 
   {%- assign feedType = page.feed-type -%}
   {%- if feedType == "album-reviews" or feedType == "guest-reviews" or feedType == "up-and-coming" -%}
-    <h2>Posts</h2>
+    <div class="post-heading">
+      <h2>Posts</h2>
+    </div>
     {%- assign displayOffset = 1 -%}
     {%- assign displayLimit = null -%}
     {%- assign sectionName = "feed" -%}

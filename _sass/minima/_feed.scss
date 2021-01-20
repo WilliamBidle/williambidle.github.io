@@ -57,18 +57,26 @@
     text-decoration: none;
   }
 
+  .title{
+    font-family: monospace;
+  }
+
   .excerpt {
     // font-style: italic;
-    font-size: 14pt;
+    font-size: 12pt;
+    margin-top: 20px;
+    font-family: monospace;
   }
 
   .author {
     font-size: 12pt;
+    font-family: monospace;
   }
 
   .date {
     color: darkgray;
     font-size: 10pt;
+    font-family: monospace;
   }
 }
 
@@ -134,18 +142,25 @@
     text-decoration: none;
   }
 
+  .title{
+    font-family: monospace;
+  }
+
   .excerpt {
     // font-style: italic;
-    font-size: 11pt;
+    font-size: 10pt;
+    font-family: monospace;
   }
 
   .author {
     font-size: 10pt;
+    font-family: monospace;
   }
 
   .date {
     color: darkgray;
     font-size: 8pt;
+    font-family: monospace;
   }
 
 }

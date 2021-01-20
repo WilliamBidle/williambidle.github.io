@@ -12,8 +12,9 @@
 
 .site-title {
   @include relative-font-size(2);
-  font-weight: 300;
-  font-style: italic;
+  font-weight: bolder;
+  // font-style: italic;
+  font-family: monospace;
   line-height: $base-line-height * $base-font-size * 2.25;
   letter-spacing: -1px;
   margin-bottom: 0;
@@ -40,6 +41,8 @@
   .page-link {
     color: $text-color;
     line-height: $base-line-height;
+    font-family: monospace;
+    font-weight: bold;
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
@@ -109,6 +112,7 @@
 .site-footer {
   border-top: 1px solid $grey-color-light;
   padding: $spacing-unit 0;
+  font-family: monospace;
 }
 
 .footer-heading {
@@ -207,6 +211,7 @@
 .post-meta {
   font-size: $small-font-size;
   color: $grey-color;
+  font-family: monospace;
 }
 
 .post-link {
@@ -227,6 +232,8 @@
   @include relative-font-size(2.625);
   letter-spacing: -1px;
   line-height: 1;
+  font-family: monospace;
+  font-weight: bold;
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.25);
@@ -235,6 +242,7 @@
 
 .post-content {
   margin-bottom: $spacing-unit;
+  font-family: monospace;
 
   h2 {
     @include relative-font-size(2);
@@ -292,8 +300,15 @@
   font-size: 14pt;
   height: 300px;
   border-radius: 50%;
+  margin-top: 25px;
+  margin-right: 25px;
+  margin-left: 20px;
   // filter: grayscale(100%);
   float: left;
+
+  font-size: 18pt;
+  font-style: italic;
+  font-family: monospace;
 }
 
 // this is for Ilana's about picture
@@ -302,8 +317,15 @@
   font-size: 14pt;
   height: 300px;
   border-radius: 50%;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-right: 20px;
   // filter: grayscale(100%);
   float: right;
+
+  font-size: 18pt;
+  font-style: italic;
+  font-family: monospace;
 }
 
 // this is for the tag section as a whole (i.e. spacing)
@@ -320,4 +342,18 @@
     font-size: 12pt;
     font-style: italic;
   }
+}
+
+.about-text{
+  margin-top: 130px;
+  font-family: monospace;
+}
+
+.post-heading{
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.tag-page{
+  font-family: monospace;
 }
