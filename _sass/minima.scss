@@ -15,6 +15,12 @@ $text-color:       #111 !default;
 $background-color: azure;
 $brand-color:      #2a7ae2 !default;
 
+// code I wrote for the background gradient
+body {
+  background-image: url("/assets/images/site-background.png");
+  background-size: contain;
+}
+
 $grey-color:       #828282 !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
 $grey-color-dark:  darken($grey-color, 25%) !default;
