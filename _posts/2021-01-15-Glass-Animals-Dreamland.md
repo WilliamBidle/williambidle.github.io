@@ -2,7 +2,7 @@
 layout: post
 title:  "Glass Animals - Dreamland"
 date:   2021-01-15 13:03:00 -0500
-category: album-reviews
+category: album-review
 author: William Bidle
 image: /assets/images/posts/DREAMLAND-album-artwork.jpg
 comments:  true

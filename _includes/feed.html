@@ -13,11 +13,22 @@
 
     <div class="card-content">
 
-      <div class="title">
-        {%- assign postTitle = post.title | escape -%}
-        {%- assign postUrl = post.url | relative_url -%}
-        <span class="title"><a href="{{postUrl}}" class="post-link">{{postTitle}}</a></span>
-      </div>
+      {%- if sectionName == "home-feed" -%}
+        <div class="title">
+          {%- assign postTitle = post.title | escape -%}
+          {%- assign postUrl = post.url | relative_url -%}
+          {% assign words = post.category | split: '-' %}
+          <span class="title"><a href="{{postUrl}}" class="post-link">{% for word in words %}{{ word | capitalize }} {% endfor %}: {{postTitle}}</a></span>
+        </div>
+
+      {%- else -%}
+        <div class="title">
+          {%- assign postTitle = post.title | escape -%}
+          {%- assign postUrl = post.url | relative_url -%}
+          <span class="title"><a href="{{postUrl}}" class="post-link">{{postTitle}}</a></span>
+        </div>
+
+      {%- endif -%}
 
       <div class="excerpt">
         {%- assign postExcerpt = post.excerpt -%}
