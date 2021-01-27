@@ -1,5 +1,5 @@
 ---
 layout: tagpage
-tag: glass-animals
+tag: Glass-Animals
 robots: noindex
 ---

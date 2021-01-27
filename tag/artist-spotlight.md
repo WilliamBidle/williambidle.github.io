@@ -1,5 +1,5 @@
 ---
 layout: tagpage
-tag: Cavetown
+tag: artist-spotlight
 robots: noindex
 ---
