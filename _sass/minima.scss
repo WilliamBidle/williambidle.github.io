@@ -11,6 +11,7 @@ $base-line-height: 1.5 !default;
 $spacing-unit:     30px !default;
 
 $text-color:       #111 !default;
+
 // $background-color: #fdfdfd !default;
 $background-color: azure;
 $brand-color:      #2a7ae2 !default;
@@ -19,6 +20,8 @@ $brand-color:      #2a7ae2 !default;
 body {
   background-image: url("/assets/images/site-background.png");
   background-size: cover;
+  // background-image: linear-gradient(to bottom, azure, mediumaquamarine);
+  // background-image: linear-gradient(to bottom, azure, lightskyblue);
 }
 
 $grey-color:       #828282 !default;
