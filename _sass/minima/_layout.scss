@@ -148,11 +148,14 @@
 .footer-col-2 {
   width: -webkit-calc(20% - (#{$spacing-unit} / 2));
   width:         calc(20% - (#{$spacing-unit} / 2));
+  margin-left: -50px;
+  margin-right: 50px;
 }
 
 .footer-col-3 {
   width: -webkit-calc(45% - (#{$spacing-unit} / 2));
   width:         calc(45% - (#{$spacing-unit} / 2));
+  margin-top: -75px;
 }
 
 @include media-query($on-laptop) {
