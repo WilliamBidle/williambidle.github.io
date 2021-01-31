@@ -7,5 +7,5 @@ image_Ilana: /images/Ilana-Zane.jpg
 ---
 
 <center><div class="about-text">
-  Welcome to The Standard Pair! We love music so we decided to make this website to talk about some of the things we listen to. The genres you can expect us to discuss range from indie and alt-rock, to electronic and hip-hop. In need of a new album to listen to? How about an up-and-coming artist? Then you are in the right place!
+  Welcome to The Standard Pair! What started out as a playful idea during quarantine has turned into a passion project. Whether you are looking for new music to listen to or are just in the mood to read some of our work, we are glad you made it to us! Want to stay up to date with our latest posts and content? Then consider subscribe to our mailing list.
 </div></center>
