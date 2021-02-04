@@ -18,7 +18,7 @@
           {%- assign postTitle = post.title | escape -%}
           {%- assign postUrl = post.url | relative_url -%}
           {% assign words = post.category | split: '-' %}
-          <span class="title"><a href="{{postUrl}}" class="post-link">{% for word in words %}{{ word | capitalize }} {% endfor %}: {{postTitle}}</a></span>
+          <span class="title"><a href="{{postUrl}}" class="post-link">{% for word in words %}{% if word == "EPs" %}{{ word }}{% else %}{{ word | capitalize }}{% endif %} {% endfor %}: {{postTitle}}</a></span>
         </div>
 
       {%- else -%}
@@ -35,6 +35,7 @@
         <span class="excerpt">{{postExcerpt}}</span>
       </div>
 
+
       <div class="author">
         {%- assign postAuthor = post.author -%}
         <span class="author">By: {{postAuthor}}</span>
@@ -44,6 +45,21 @@
         {%- assign postDate = post.date | date: "%b %d, %Y" -%}
         <span class="date">{{postDate}}</span>
       </div>
+
+
+
+
+
+
+      <!-- <div class="tags">
+        {% for tag in post.tags %}
+          {% capture tag_name %}{{ tag }}{% endcapture %}
+          <a href="/tag/{{ tag_name }}"><code class="tags"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+        {% endfor %}
+      </div> -->
+
+
+
 
 
     </div>

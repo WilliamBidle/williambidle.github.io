@@ -335,18 +335,21 @@
 
 // this is for the tag section as a whole (i.e. spacing)
 .Tags {
-
   margin-top: 10px;
   margin-bottom: 50px;
   border-top: lightgray;
   border-width: 1px;
   border-top-style: solid;
 
-  // these are for the individual tags
-  .tags {
-    font-size: 12pt;
-    font-style: italic;
-  }
+  // &:link { color: black;}
+  // &:visited { color: black;}
+  // &:hover { color: black;}
+}
+// these are for the individual tags
+.tags {
+  font-size: 12pt;
+  // font-style: italic;
+  background-color: $background-color;
 }
 
 .about-text{

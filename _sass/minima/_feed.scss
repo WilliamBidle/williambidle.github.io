@@ -16,6 +16,7 @@
     grid-template-areas:
       "title"
       "excerpt"
+      "author"
       "date";
   }
 
@@ -36,7 +37,7 @@
 
   .card-date {
     grid-area: date;
-    align-content: end;
+    align-content: start;
   }
 
 
@@ -57,7 +58,7 @@
     text-decoration: none;
   }
 
-  .title{
+  .title {
     font-family: monospace;
   }
 
@@ -192,6 +193,7 @@
     grid-template-areas:
       "title"
       "excerpt"
+      "author"
       "date";
   }
 
@@ -212,7 +214,7 @@
 
   .card-date {
     grid-area: date;
-    align-content: end;
+    align-content: start;
   }
 
   // styling
@@ -250,6 +252,7 @@
     color: darkgray;
     font-size: 8pt;
     font-family: monospace;
+    margin-bottom: 5px;
   }
 
 }
