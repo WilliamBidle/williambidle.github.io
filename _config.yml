@@ -18,8 +18,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: The Standard Pair
-email: thestandardpair@gmail.com
+title: William Bidle
+email: wkb15@scarletmail.rutgers.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Welcome to our music review blog! We write about music we enjoy listening to across many different genres.
 
