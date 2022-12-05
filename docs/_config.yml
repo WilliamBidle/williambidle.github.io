@@ -21,25 +21,25 @@
 title: William Bidle
 email: wkb15@scarletmail.rutgers.edu
 description: >- # this means to ignore newlines until "baseurl:"
-  Welcome to our music review blog! We write about music we enjoy listening to across many different genres.
+  Welcome to my personal website!
 
 baseurl: "" # the subpath of your site, e.g. /blog
 #url: "https://thestandardpair.com" # the base hostname & protocol for your site, e.g. http://example.com
 url: ""
-twitter_username: thestandardpair
-instagram_username: thestandardpair
+twitter_username: 
+instagram_username: will.bidle
 
 # Disqus Comments
 disqus:
   # Leave shortname blank to disable comments site-wide.
   # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
-  shortname: the-standard-pair
+  shortname: william-bidle
 
 # Google Analytics
 google_analytics: UA-187460509-1
 
 # Added a copyright by adding code to the footer.html file
-copyright: "The Standard Pair"
+copyright: "William Bidle"
 
 # title-logo: /images/title-logo.jpg
 
