@@ -316,17 +316,18 @@
   font-family: monospace;
 }
 
-// this is for Ilana's about picture
-.Ilana {
+// this is for the guest author's about picture
+.author-pic {
   text-align: center;
   font-size: 14pt;
   height: 300px;
   border-radius: 50%;
-  margin-top: 15px;
+  //margin-top: 10px;
+  //margin-bottom: 35px;
   margin-left: 25px;
   margin-right: 20px;
   // filter: grayscale(100%);
-  float: right;
+  float: left;
 
   font-size: 18pt;
   font-style: italic;

@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <!-- {%- if page.image -%}
@@ -35,9 +36,16 @@ layout: default
     {% endfor %}
     ]</span></center>
 
+
   </div>
+  {%- if page.author_image -%}
+    <div class="author-pic">
+      <img src="{{- page.author_image | relative_url -}}" alt ="" class="author-pic">
+      <p>{{page.author}}</p>
+    </div>
+    {%- endif -%}
 
-
+    {{page.guest_bio}}
 </article>
 
 
