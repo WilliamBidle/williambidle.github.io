@@ -9,7 +9,7 @@ image: /assets/images/posts/Young-life-crisis.jpg
 comments: true
 tags: UPSAHL EP
 image_Ilana: /images/Ilana-Zane.jpg
-guest_bio: "Ilana Zane is currently an M.S. student at Steven's University studying Artificial Intelligence and Robotics."
+guest_bio: "Ilana Zane is currently an M.S. student at Stevens Institute of Technology studying Artificial Intelligence and Robotics."
 ---
 
 I’m probably not the only person plagued by bad social interactions, mini life crises, and questions of self doubt. I could dedicate this entire post to writing about my issues, but UPSAHL does it better in her latest EP, _Young Life Crisis_, released in October 2020. Twenty year old Taylor Upsahl was at home in Arizona during the pandemic when she came out with the album, and I’ve been addicted to it ever since. Her sound is edgy and dark; pop with elements of rock. Each song has a verifiably unique sound, but they all come together to pretty much summarize the issues that most twenty year olds can collectively understand.

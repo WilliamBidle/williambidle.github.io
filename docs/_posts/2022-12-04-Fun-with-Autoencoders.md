@@ -1,8 +1,16 @@
 ---
-layout: post 
-title: "Your Title" 
-date: 2022-12-04
---- 
+layout: post
+title:  "Fun with Autoencoders"
+date:   2022-12-05 22:13:00 -0500
+category: programming-projects
+author: William Bidle
+comments: true
+tags: artificial-intelligence machine-learning autoencoders python
+image: /assets/images/posts/Autoencoder.png
+
+---
+
+Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Tensorflow package in Python.
 
 # Import 
 
@@ -220,7 +228,7 @@ plt.show()
 
 
     
-![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
     
 
 
@@ -306,7 +314,7 @@ print('For example images 1 and 5 (numbers 4 and 6 respectively) share the gener
 
 
     
-![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_13_0.png)
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_13_0.png)
     
 
 
