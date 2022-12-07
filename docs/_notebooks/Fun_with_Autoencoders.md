@@ -1,19 +1,3 @@
----
-layout: post
-title:  "Fun with Autoencoders"
-date:   2022-12-05 22:13:00 -0500
-category: programming-projects
-author: William Bidle
-comments: true
-tags: artificial-intelligence machine-learning autoencoders python
-image: /assets/images/posts/Autoencoder.png
-
----
-
-Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Tensorflow package in Python.
-
-We can begin by importing all of the necessary packages to perform the machine learning through Keras, as well as all of the other packages that will be helpful for data manipulation and visualization, such as NumPy and Matplotlib.
-
 # Imports
 
 
@@ -34,8 +18,6 @@ import matplotlib.pyplot as plt
 import itertools
 from tqdm.notebook import tnrange 
 ```
-
-Now just to get a feel for building the models, I am going to generate my own dataset composed of random values between zero and one. While this won't lead to any super interesting or meaningful results, there are still a few things we can look at such as how the number of features impacts the performance, as well as how different models stack up against each other.
 
 # Crude Model with Crude Data
 
@@ -142,7 +124,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
     
 
 
@@ -273,7 +255,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_16_0.png)
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_16_0.png)
     
 
 
@@ -293,7 +275,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_17_0.png)
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_17_0.png)
     
 
 
@@ -349,6 +331,8 @@ for i in tnrange(1,6):
 ```
 
 
+    HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=5.0), HTML(value='')))
+
 
     
 
@@ -371,7 +355,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_21_0.png)
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_21_0.png)
     
 
 
@@ -422,6 +406,9 @@ autoencoder.fit(x_train, x_train,
 
 
 
+    <keras.callbacks.History at 0x7fb4356e9be0>
+
+
 
 
 ```python
@@ -452,7 +439,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_28_0.png)
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_28_0.png)
     
 
 
@@ -491,7 +478,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_31_0.png)
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_31_0.png)
     
 
 
@@ -502,17 +489,58 @@ best = list(dict(sorted(Dict.items(), key=lambda item: item[1]))) # pick out the
 plt.figure(figsize=(20, 4))
 for i in range(10):
     ax = plt.subplot(2, 10, i + 1)
-    plt.imshow(x_test[worst[i]].reshape(28, 28)) # display the original
+    plt.imshow(x_test[best[i]].reshape(28, 28)) # display the original
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
     
     ax = plt.subplot(2, 10, i + 11)
-    plt.imshow(decoded_imgs[worst[i]].reshape(28, 28)) # display reconstruction
+    plt.imshow(decoded_imgs[best[i]].reshape(28, 28)) # display reconstruction
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
     
 plt.show()    
 ```
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_32_0.png)
+
+
+    
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_32_0.png)
+    
+
+
+# Plot Used for Website Post
+
+
+```python
+fig, ax = plt.subplots(2, 2, figsize = (10,10), constrained_layout = True)
+
+ax[0][0].imshow(x_test[0].reshape(28,28))
+ax[0][0].get_xaxis().set_visible(False)
+ax[0][0].get_yaxis().set_visible(False)
+
+ax[1][0].imshow(decoded_imgs[0].reshape(28,28))
+ax[1][0].get_xaxis().set_visible(False)
+ax[1][0].get_yaxis().set_visible(False)
+
+ax[0][1].imshow(x_test[1].reshape(28,28))
+ax[0][1].get_xaxis().set_visible(False)
+ax[0][1].get_yaxis().set_visible(False)
+
+ax[1][1].imshow(decoded_imgs[1].reshape(28,28))
+ax[1][1].get_xaxis().set_visible(False)
+ax[1][1].get_yaxis().set_visible(False)
+
+plt.savefig("Autoencoder")
+```
+
+
+    
+![png](Fun_with_Autoencoders_files/Fun_with_Autoencoders_34_0.png)
+    
+
+
+
+```python
+
+```
