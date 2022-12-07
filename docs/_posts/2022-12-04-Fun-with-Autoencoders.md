@@ -10,12 +10,11 @@ image: /assets/images/posts/Autoencoder.png
 
 ---
 
-Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Tensorflow package in Python.
+Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Keras architechture from Tensorflow in Python.
 
 We can begin by importing all of the necessary packages to perform the machine learning through Keras, as well as all of the other packages that will be helpful for data manipulation and visualization, such as NumPy and Matplotlib.
 
 # Imports
-
 
 ```python
 ''' For Machine Learning ''' 
@@ -35,16 +34,16 @@ import itertools
 from tqdm.notebook import tnrange 
 ```
 
-Now just to get a feel for building the models, I am going to generate my own dataset composed of random values between zero and one. While this won't lead to any super interesting or meaningful results, there are still a few things we can look at such as how the number of features impacts the performance, as well as how different models stack up against each other.
+# Crude Model with Uncorrelated Data
 
-# Crude Model with Crude Data
-
+Now just to get a feel for building the models, I am going to generate my own dataset composed of random values between zero and one - essentially uncorrelated. While this won't lead to any super interesting or meaningful results, there are still a few things we can look at such as how the number of features impacts the performance, as well as how different models stack up against each other. 
 
 ```python
 data = np.random.rand(1000000, 32) # Generate 1,000,000 random data points with 50 features each
 train, test = train_test_split(data, test_size = 0.1, random_state = 42) # split training and testing data 
 ```
 
+So essentially we have 1 million data points with 32 features each (this reason for this number will become clear in a bit), and then split 90% of that data for training, and 10% for testing. Now it's time to build our model. To start, let's just construct a very simple autoencoder that has 1 input layer, 1 encoding layer, and 1 decoding layer. To simplify things even further, let's just use 2 nodes for the hidden layer. Since our data is uncorrelated to begin with, the actviation function shouldn't matter all too much, so let's just use sigmoid.
 
 ```python
 input_dim = len(data[0]) # input dimension is equal to the number of features
@@ -65,6 +64,7 @@ decoder_layer = autoencoder.layers[-1]
 decoder = Model(encoded_input, decoder_layer(encoded_input))
 ```
 
+Great! So we take a 32 feature input, compress it down to 2 features, and then back to 32 for the output. Now we just need need to compile our model, where we will use the _adam_ optimizer as well as _binary_crossentropy_
 
 ```python
 autoencoder.compile(optimizer='adam', loss = 'binary_crossentropy') # compile the model
@@ -79,27 +79,7 @@ autoencoder.fit(train,
                 shuffle=True, # shuffle the training data to prevent biasing
                 validation_data=(test, test), # use our test data set as validation
                 verbose = 0) # hide the output while training
-
-autoencoder.summary() # print out a summary of our trained model
 ```
-
-    Model: "model_97"
-    _________________________________________________________________
-     Layer (type)                Output Shape              Param #   
-    =================================================================
-     input_70 (InputLayer)       [(None, 32)]              0         
-                                                                     
-     dense_110 (Dense)           (None, 2)                 66        
-                                                                     
-     dense_111 (Dense)           (None, 32)                96        
-                                                                     
-    =================================================================
-    Total params: 162
-    Trainable params: 162
-    Non-trainable params: 0
-    _________________________________________________________________
-
-
 
 ```python
 encoded_test = encoder.predict(test) # encode our features
@@ -109,18 +89,18 @@ print(test[0]) # look at the actual test value
 print(decoded_test[0]) # look at the reconstructed test value
 ```
 
-    [0.07510069 0.30007593 0.76305144 0.07118664 0.13958508 0.3043231
-     0.26176505 0.89179746 0.78112719 0.48390841 0.95331468 0.07744047
-     0.06803597 0.18831651 0.11204832 0.55140946 0.28988208 0.05071692
-     0.68582315 0.28177366 0.39607787 0.96742285 0.84322343 0.63715436
-     0.86351372 0.25424301 0.0181759  0.36545146 0.53544177 0.67827945
-     0.69267482 0.68433683]
-    [0.4975744  0.49975744 0.49880365 0.50790894 0.11648697 0.5070695
-     0.50237584 0.51364744 0.4936175  0.4960701  0.49711403 0.5066658
-     0.50228846 0.49448282 0.49697858 0.5063781  0.49736187 0.48692814
-     0.49450308 0.49640855 0.49805    0.50026315 0.4800516  0.50509554
-     0.5296125  0.51166415 0.49805677 0.5124451  0.4689298  0.50134176
-     0.49138045 0.50440127]
+    [0.556486   0.58612267 0.43598429 0.68282666 0.42345375 0.97432931
+     0.49944351 0.10358606 0.2795492  0.33025213 0.65473529 0.93899687
+     0.99052735 0.83792705 0.83594489 0.20536917 0.10406014 0.8230105
+     0.86663848 0.68582927 0.25397477 0.84576008 0.82777497 0.27917432
+     0.06123279 0.37242095 0.99979739 0.12593275 0.47674639 0.25945843
+     0.31310348 0.7138106 ]
+    [0.53921926 0.4994602  0.49328583 0.49671558 0.5022028  0.5054807
+     0.4923939  0.50397915 0.5014668  0.5021777  0.4975547  0.5055389
+     0.49808562 0.5042102  0.49124807 0.49604833 0.4979566  0.5032116
+     0.5059231  0.49701744 0.50652647 0.5090825  0.49114063 0.5111462
+     0.50072366 0.5080269  0.49587056 0.49579388 0.5297682  0.22143435
+     0.5013049  0.5169519 ]
 
 
 
@@ -133,9 +113,9 @@ error = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error 
 fig, ax = plt.subplots(figsize = (15,8))
 bins = np.linspace(min(error), max(error), 100)
 ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black')
-ax.set_title('Simple Autoencoder Results', fontsize = 20)
-ax.set_xlabel('Error', fontsize = 18)
-ax.set_ylabel('Number of Counts', fontsize = 18)
+ax.set_title('Simple Autoencoder Results', fontsize = 24)
+ax.set_xlabel('Error', fontsize = 20)
+ax.set_ylabel('Number of Counts', fontsize = 20)
 ax.grid(linestyle = '--')
 plt.show()
 ```
@@ -146,7 +126,7 @@ plt.show()
     
 
 
-# Complex Model with Crude Data
+# More Complex Model with Uncorrelated Data
 
 
 ```python
@@ -198,38 +178,7 @@ autoencoder.fit(train,
                 shuffle=True, # shuffle the training data to prevent biasing
                 validation_data=(test, test), # use our test data set as validation
                 verbose = 0) # hide the output while training
-
-autoencoder.summary() # print out a summary of our trained model
 ```
-
-    Model: "model_100"
-    _________________________________________________________________
-     Layer (type)                Output Shape              Param #   
-    =================================================================
-     input_72 (InputLayer)       [(None, 32)]              0         
-                                                                     
-     dense_112 (Dense)           (None, 16)                528       
-                                                                     
-     dense_113 (Dense)           (None, 8)                 136       
-                                                                     
-     dense_114 (Dense)           (None, 4)                 36        
-                                                                     
-     dense_115 (Dense)           (None, 2)                 10        
-                                                                     
-     dense_116 (Dense)           (None, 32)                96        
-                                                                     
-     dense_117 (Dense)           (None, 32)                1056      
-                                                                     
-     dense_118 (Dense)           (None, 32)                1056      
-                                                                     
-     dense_119 (Dense)           (None, 32)                1056      
-                                                                     
-    =================================================================
-    Total params: 3,974
-    Trainable params: 3,974
-    Non-trainable params: 0
-    _________________________________________________________________
-
 
 
 ```python
@@ -240,18 +189,18 @@ print(test[0]) # look at the actual test value
 print(decoded_test[0]) # look at the reconstructed test value
 ```
 
-    [0.07510069 0.30007593 0.76305144 0.07118664 0.13958508 0.3043231
-     0.26176505 0.89179746 0.78112719 0.48390841 0.95331468 0.07744047
-     0.06803597 0.18831651 0.11204832 0.55140946 0.28988208 0.05071692
-     0.68582315 0.28177366 0.39607787 0.96742285 0.84322343 0.63715436
-     0.86351372 0.25424301 0.0181759  0.36545146 0.53544177 0.67827945
-     0.69267482 0.68433683]
-    [0.4931908  0.4849981  0.48804194 0.49359122 0.49538612 0.47869807
-     0.2756251  0.501477   0.49220607 0.49593604 0.4963704  0.4906016
-     0.4911508  0.49086615 0.49420643 0.49802083 0.48156783 0.49177524
-     0.4873297  0.4988328  0.5009467  0.49308836 0.49767962 0.48563516
-     0.8399626  0.48694092 0.49597144 0.49519506 0.5041937  0.50319403
-     0.49072924 0.4877625 ]
+    [0.556486   0.58612267 0.43598429 0.68282666 0.42345375 0.97432931
+     0.49944351 0.10358606 0.2795492  0.33025213 0.65473529 0.93899687
+     0.99052735 0.83792705 0.83594489 0.20536917 0.10406014 0.8230105
+     0.86663848 0.68582927 0.25397477 0.84576008 0.82777497 0.27917432
+     0.06123279 0.37242095 0.99979739 0.12593275 0.47674639 0.25945843
+     0.31310348 0.7138106 ]
+    [0.5235458  0.5256356  0.5096446  0.79323983 0.51500344 0.5038291
+     0.48975173 0.5103137  0.5213022  0.48451337 0.5384443  0.504355
+     0.5069203  0.4980652  0.49509197 0.532431   0.5269899  0.5134901
+     0.46503198 0.5058428  0.49001136 0.49506173 0.5165646  0.49450803
+     0.4629777  0.47933778 0.46951854 0.5075482  0.5309669  0.5300103
+     0.2258296  0.5555568 ]
 
 
 
@@ -264,9 +213,9 @@ error2 = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error
 fig, ax = plt.subplots(figsize = (15,8))
 bins = np.linspace(min(error2), max(error2), 100)
 ax.hist(error2, bins = bins, align = 'mid', edgecolor = 'black')
-ax.set_title('Complex Autoencoder Results', fontsize = 20)
-ax.set_xlabel('Error', fontsize = 18)
-ax.set_ylabel('Number of Counts', fontsize = 18)
+ax.set_title('Complex Autoencoder Results', fontsize = 24)
+ax.set_xlabel('Error', fontsize = 20)
+ax.set_ylabel('Number of Counts', fontsize = 20)
 ax.grid(linestyle = '--')
 plt.show()
 ```
@@ -281,13 +230,13 @@ plt.show()
 ```python
 fig, ax = plt.subplots(figsize = (15,8))
 bins = np.linspace(min(error2), max(error2), 100)
-ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black', label = r'$\sigma = %s$' % round(np.std(error), 3))
-ax.hist(error2, bins = bins, align = 'mid', edgecolor = 'black', label = r'$\sigma = %s$' % round(np.std(error2), 3))
-ax.set_title('Simple Autoencoder Results', fontsize = 20)
-ax.set_xlabel('Error', fontsize = 18)
-ax.set_ylabel('Number of Counts', fontsize = 18)
+ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black', label = r'$\sigma = %s$' % round(np.std(error), 3), alpha = 0.75)
+ax.hist(error2, bins = bins, align = 'mid', edgecolor = 'black', label = r'$\sigma = %s$' % round(np.std(error2), 3), alpha = 0.75)
+ax.set_title('Comparison', fontsize = 24)
+ax.set_xlabel('Error', fontsize = 20)
+ax.set_ylabel('Number of Counts', fontsize = 20)
 ax.grid(linestyle = '--')
-ax.legend(fontsize = 14)
+ax.legend(fontsize = 18)
 plt.show()
 ```
 
@@ -297,15 +246,13 @@ plt.show()
     
 
 
-# Do the Number of Features Matter?
+# Does the Number of Features Matter?
 
 
 ```python
-def simple_autoencoder(input_dim):
+def simple_autoencoder(input_dim, data):
     
-    data = np.random.rand(1000000, input_dim) # Generate 1,000,000 random data points with 50 features each
     train, test = train_test_split(data, test_size = 0.1, random_state = 42) # split training and testing data 
-
 
     hidden_layer_nodes = 2 # the number of nodes to use in the hidden layer
 
@@ -338,20 +285,16 @@ def simple_autoencoder(input_dim):
     
     error = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error across each feature 
     
-    return error
+    return test, encoded_test, decoded_test, error
 ```
 
 
 ```python
 errors = []
 for i in tnrange(1,6):
-    errors.append(simple_autoencoder(2**i))
+    data = np.random.rand(1000000, 2**i) # Generate 1,000,000 random data points with 50 features each
+    errors.append(simple_autoencoder(2**i, data)[-1])
 ```
-
-
-
-    
-
 
 
 ```python
@@ -372,6 +315,62 @@ plt.show()
 
     
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_21_0.png)
+    
+
+
+# What About More Correlated Data?
+
+
+```python
+data = []
+for j in range(1000000):
+    random_start = np.random.rand()*2*np.pi
+    v_list = np.linspace(random_start, random_start+np.pi, 32)
+    data.append(np.sin(v_list)**2)
+data = np.array(data)
+```
+
+
+```python
+errors = []
+for i in tnrange(1,6):
+
+    num_features = 2**i
+    data = []
+    for j in range(1000000):
+        random_start = np.random.rand()*2*np.pi
+        v_list = np.linspace(random_start, random_start+, num_features)
+        data.append(np.sin(v_list)**2)
+    data = np.array(data)
+    
+    errors.append(simple_autoencoder(2**i, data)[-1])
+```
+
+
+```python
+fig, ax = plt.subplots(figsize = (15,8))
+bins = np.linspace(0, np.max(errors), 200)
+
+for i, vals in enumerate(errors):
+    ax.hist(vals, bins = bins, align = 'mid', edgecolor = 'black', alpha = 0.75, label = '%s Input Features: $\sigma = %s$' % (2**(i+1), round(np.std(vals), 3)))
+    
+ax.set_title('Error Distributions as Functions of Input Features', fontsize = 24)
+ax.set_xlabel('Error', fontsize = 20)
+ax.set_ylabel('Number of Counts', fontsize = 20)
+ax.grid(linestyle = '--')
+ax.legend(fontsize = 18)
+plt.show()
+```
+
+
+    
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_25_0.png)
+    
+
+
+# Now Do the Number of Layers Matter?
+    
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_27_0.png)
     
 
 
@@ -421,9 +420,6 @@ autoencoder.fit(x_train, x_train,
 
 
 
-
-
-
 ```python
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
@@ -452,13 +448,22 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_28_0.png)
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_34_0.png)
     
 
 
 
 ```python
 error = np.sum(abs(x_test - decoded_imgs), axis = 1) # compute the absolute error across each feature 
+
+fig, ax = plt.subplots(figsize = (15,8))
+bins = np.linspace(min(error), max(error), 100)
+ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black')
+ax.set_title('Complex Autoencoder Results', fontsize = 20)
+ax.set_xlabel('Error', fontsize = 18)
+ax.set_ylabel('Number of Counts', fontsize = 18)
+ax.grid(linestyle = '--')
+plt.show()
 ```
 
 
@@ -491,7 +496,7 @@ plt.show()
 
 
     
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_31_0.png)
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_37_0.png)
     
 
 
@@ -502,17 +507,20 @@ best = list(dict(sorted(Dict.items(), key=lambda item: item[1]))) # pick out the
 plt.figure(figsize=(20, 4))
 for i in range(10):
     ax = plt.subplot(2, 10, i + 1)
-    plt.imshow(x_test[worst[i]].reshape(28, 28)) # display the original
+    plt.imshow(x_test[best[i]].reshape(28, 28)) # display the original
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
     
     ax = plt.subplot(2, 10, i + 11)
-    plt.imshow(decoded_imgs[worst[i]].reshape(28, 28)) # display reconstruction
+    plt.imshow(decoded_imgs[best[i]].reshape(28, 28)) # display reconstruction
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
     
 plt.show()    
 ```
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_32_0.png)
+
+
+    
+![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_38_0.png)
