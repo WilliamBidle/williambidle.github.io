@@ -64,12 +64,13 @@ decoder_layer = autoencoder.layers[-1]
 decoder = Model(encoded_input, decoder_layer(encoded_input))
 ```
 
-Great! So we take a 32 feature input, compress it down to 2 features, and then back to 32 for the output. Now we just need need to compile our model, where we will use the _adam_ optimizer as well as _binary_crossentropy_
+Great! So we take a 32 feature input, compress it down to 2 features, and then back to 32 for the output. Now we just need need to compile our model, where we will use the _adam_ optimizer as well as _binary_crossentropy_.
 
 ```python
 autoencoder.compile(optimizer='adam', loss = 'binary_crossentropy') # compile the model
 ```
 
+Finally let's fit our model to our training data, and use the test data for validation. Just to keep training time light I will use a _batch_size_ of 100 and only train for 10 _epochs_.
 
 ```python
 autoencoder.fit(train,
@@ -80,6 +81,8 @@ autoencoder.fit(train,
                 validation_data=(test, test), # use our test data set as validation
                 verbose = 0) # hide the output while training
 ```
+
+And we are done! That was easy. Now how did it do? Let's look at the first test data point and compare it with the result after passing it through our autoencoder.
 
 ```python
 encoded_test = encoder.predict(test) # encode our features
@@ -102,12 +105,13 @@ print(decoded_test[0]) # look at the reconstructed test value
      0.50072366 0.5080269  0.49587056 0.49579388 0.5297682  0.22143435
      0.5013049  0.5169519 ]
 
-
+Not too shabby! Some of the values are definitely in the right ballpark, but there are still a lot that aren't even close. Generally this is okay, since we don't always want the output to be exactly the same as the input, but it should at least be close. Let's compute the sum of the absolute error across each feature for every data point.
 
 ```python
 error = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error across each feature 
 ```
 
+This essentially will tell us how far off each output is from it's actual value. If every output feature is exactly the same as the input, then we expect the error for that data point to go to zero. Let's visualize our errors in a histogram.
 
 ```python
 fig, ax = plt.subplots(figsize = (15,8))
@@ -120,10 +124,9 @@ ax.grid(linestyle = '--')
 plt.show()
 ```
 
-
-    
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
     
+A Gaussian distribution! Very intere
 
 
 # More Complex Model with Uncorrelated Data
