@@ -28,6 +28,8 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: ""
 twitter_username: 
 instagram_username: will.bidle
+linkedin_username: williambidle
+
 
 # Disqus Comments
 disqus:
