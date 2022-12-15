@@ -9,12 +9,20 @@ tags: artificial-intelligence machine-learning autoencoders python
 image: /assets/images/posts/Autoencoder.png
 
 ---
+<script
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  type="text/javascript">
+</script>
 
-Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Keras architechture from Tensorflow in Python.
+Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Keras architechture from Tensorflow in Python. All of the code for the project and generated figures can be found in the <a href="https://github.com/WilliamBidle/Fun-with-Autoencoders/blob/master/Fun_with_Autoencoders.ipynb" target = "_blank">Fun_with_Autoencoders</a> Jupyter Notebook located on my Github.
 
-We can begin by importing all of the necessary packages to perform the machine learning through Keras, as well as all of the other packages that will be helpful for data manipulation and visualization, such as NumPy and Matplotlib.
+# What is an Autoencoder?
+
+An autoencoder is a type of neural network that is used in artificial intelligence to create efficient encodings of unlabeled data. The network hopes to learn as much as it can about the fundamental aspects of a given set of data by picking out some of the more important features or patterns that may exist. Therefore an autoencoder works to dimensionally reduce a set of data, similar to what is done in Principal Component Analysis (PCA). Among many things, these types of models excel at facial recognition, word detection, and as we shall see towards the end of this post, image reconstruction. 
 
 # Imports
+
+We can begin by importing all of the necessary packages, such as Keras for the machine learning, NumPy for data manipulation, and Matplotlib for visualizations.
 
 ```python
 ''' For Machine Learning ''' 
@@ -36,14 +44,14 @@ from tqdm.notebook import tnrange
 
 # Crude Model with Uncorrelated Data
 
-Now just to get a feel for building the models, I am going to generate my own dataset composed of random values between zero and one - essentially uncorrelated. While this won't lead to any super interesting or meaningful results, there are still a few things we can look at such as how the number of features impacts the performance, as well as how different models stack up against each other. 
+ Before we can even discuss building a model, it is important to have some idea of what type of data we will be using. Now usually these types of tasks are great for feature reduction of images, and while we will get to that later, it might be a good starting point to just use some easy to control, randomly generated data, whose features are essentially uncorrelated. While this might not lead to any super interesting or meaningful results, there are still a few things we can look at such as how the number of features impacts the performance, as well as how different models stack up against each other. So, using NumPy, let's create 1,000,000 data points with 32 features that contain random values between 0 and 1:
 
 ```python
-data = np.random.rand(1000000, 32) # Generate 1,000,000 random data points with 50 features each
+data = np.random.rand(1000000, 32) # Generate 1,000,000 random data points with 32 features each
 train, test = train_test_split(data, test_size = 0.1, random_state = 42) # split training and testing data 
 ```
 
-So essentially we have 1 million data points with 32 features each (this reason for this number will become clear in a bit), and then split 90% of that data for training, and 10% for testing. Now it's time to build our model. To start, let's just construct a very simple autoencoder that has 1 input layer, 1 encoding layer, and 1 decoding layer. To simplify things even further, let's just use 2 nodes for the hidden layer. Since our data is uncorrelated to begin with, the actviation function shouldn't matter all too much, so let's just use sigmoid.
+So essentially we have 1 million data points with 32 features each, and then split 90% of that data for training, and 10% for testing. Now it's time to build our model. To start, let's just construct the very simpliest of autoencoders that consists of 1 encoding layer and 1 decoding layer. To simplify things even further, let's just use 2 nodes for the hidden layer. Since our data is uncorrelated to begin with, the actviation function shouldn't matter all too much, but since our input values are all positive and between 0 and 1, let's use the sigmoid activation:
 
 ```python
 input_dim = len(data[0]) # input dimension is equal to the number of features
@@ -64,13 +72,13 @@ decoder_layer = autoencoder.layers[-1]
 decoder = Model(encoded_input, decoder_layer(encoded_input))
 ```
 
-Great! So we take a 32 feature input, compress it down to 2 features, and then back to 32 for the output. Now we just need need to compile our model, where we will use the _adam_ optimizer as well as _binary_crossentropy_.
+Great! So we take a 32 feature input, compress it down to 2 features, and then back to 32 for the output. Now we just need need to compile our model, where we will use _adam_ for the optimizer as well as _binary_crossentropy_ for the loss function, both of which are standard practices for building autoencoders:
 
 ```python
 autoencoder.compile(optimizer='adam', loss = 'binary_crossentropy') # compile the model
 ```
 
-Finally let's fit our model to our training data, and use the test data for validation. Just to keep training time light I will use a _batch_size_ of 100 and only train for 10 _epochs_.
+Finally let's fit our model to our training data, and use the test data we set aside for validation. Just to keep training time light I will use a _batch_size_ of 100 and only train for 10 _epochs_:
 
 ```python
 autoencoder.fit(train,
@@ -82,7 +90,7 @@ autoencoder.fit(train,
                 verbose = 0) # hide the output while training
 ```
 
-And we are done! That was easy. Now how did it do? Let's look at the first test data point and compare it with the result after passing it through our autoencoder.
+And we are done! That was easy. Now how did it do? Let's look at the first test data point and compare it with the result after passing it through our autoencoder:
 
 ```python
 encoded_test = encoder.predict(test) # encode our features
@@ -105,13 +113,17 @@ print(decoded_test[0]) # look at the reconstructed test value
      0.50072366 0.5080269  0.49587056 0.49579388 0.5297682  0.22143435
      0.5013049  0.5169519 ]
 
-Not too shabby! Some of the values are definitely in the right ballpark, but there are still a lot that aren't even close. Generally this is okay, since we don't always want the output to be exactly the same as the input, but it should at least be close. Let's compute the sum of the absolute error across each feature for every data point.
+Not too shabby! Some of the values are definitely in the right ballpark, but there are still a lot that aren't even close. Generally this is okay, since we don't always want the output to be exactly the same as the input, but it should at least be close. We can get an idea of the performance by looking at the sum of the absolute error across each feature for every data point.
+
+$$ error = \sum_{i = 1}^N|y_i - \hat{y}_i|$$
+
+Where the sum runs over the number of features N (in our case N = 32), $$y_i$$ is the $$i^{th}$$ feature of the autoencoder output (the guess), and $$\hat{y}_i$$ is the $$i^{th}$$ feature of the actual label (the real value). If every output feature is exactly the same as the input, then we expect the error for that data point to go to zero, indicating perfect reconstruction. 
 
 ```python
 error = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error across each feature 
 ```
 
-This essentially will tell us how far off each output is from it's actual value. If every output feature is exactly the same as the input, then we expect the error for that data point to go to zero. Let's visualize our errors in a histogram.
+Let's visualize the computed errors over all the test data in a histogram:
 
 ```python
 fig, ax = plt.subplots(figsize = (15,8))
@@ -126,11 +138,12 @@ plt.show()
 
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
     
-A Gaussian distribution! Very intere
+A Gaussian distribution! This does somewhat make sense though as the model is trying to figure out patterns in data that ultimately has no patterns! and therefore can only do as good as the 
 
 
 # More Complex Model with Uncorrelated Data
 
+Now what if we tried the same thing with a more complex model? Let's use 4 encoding layers and 4 decoding layers, with each layer decreasing/increasing by a factor of 2 (i.e. 32 -> 16 -> 8 -> 4 -> 2 -> 4 -> 8 -> 16 -> 32). We will again use sigmoid activation functions as well as the same optimizer and loss function from the simple model:
 
 ```python
 input_dim = len(data[0]) # input dimension is equal to the number of features
@@ -205,36 +218,15 @@ print(decoded_test[0]) # look at the reconstructed test value
      0.4629777  0.47933778 0.46951854 0.5075482  0.5309669  0.5300103
      0.2258296  0.5555568 ]
 
-
-
-```python
-error2 = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error across each feature 
-```
-
+Again not too bad! But how does it look compared to the simple model?
 
 ```python
 fig, ax = plt.subplots(figsize = (15,8))
 bins = np.linspace(min(error2), max(error2), 100)
-ax.hist(error2, bins = bins, align = 'mid', edgecolor = 'black')
-ax.set_title('Complex Autoencoder Results', fontsize = 24)
-ax.set_xlabel('Error', fontsize = 20)
-ax.set_ylabel('Number of Counts', fontsize = 20)
-ax.grid(linestyle = '--')
-plt.show()
-```
-
-
-    
-![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_16_0.png)
-    
-
-
-
-```python
-fig, ax = plt.subplots(figsize = (15,8))
-bins = np.linspace(min(error2), max(error2), 100)
-ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black', label = r'$\sigma = %s$' % round(np.std(error), 3), alpha = 0.75)
-ax.hist(error2, bins = bins, align = 'mid', edgecolor = 'black', label = r'$\sigma = %s$' % round(np.std(error2), 3), alpha = 0.75)
+ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black', 
+    label = r'1 Layer Autoencoder: $\sigma = %s$' % round(np.std(error), 3), alpha = 0.75)
+ax.hist(error2, bins = bins, align = 'mid', edgecolor = 'black', 
+    label = r'4 Layer Autoencoder: $\sigma = %s$' % round(np.std(error2), 3), alpha = 0.75)
 ax.set_title('Comparison', fontsize = 24)
 ax.set_xlabel('Error', fontsize = 20)
 ax.set_ylabel('Number of Counts', fontsize = 20)
@@ -247,82 +239,19 @@ plt.show()
     
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_17_0.png)
     
-
+They're almost identical! We might have naively expect this more complex model to outperform the simple model, but clearly it doesn't matter how complex the model is if the data has no discernable patterns. Once again, we are reminded how important the quality of data is in machine learning problems!
 
 # Does the Number of Features Matter?
 
-
-```python
-def simple_autoencoder(input_dim, data):
-    
-    train, test = train_test_split(data, test_size = 0.1, random_state = 42) # split training and testing data 
-
-    hidden_layer_nodes = 2 # the number of nodes to use in the hidden layer
-
-    ''' Create the Autoencoder '''
-    input_layer = Input(shape=(input_dim,))
-    encoder_layer = Dense(hidden_layer_nodes, activation='sigmoid')(input_layer)
-    decoder_layer = Dense(input_dim, activation='sigmoid')(encoder_layer)
-    autoencoder = Model(input_layer, decoder_layer)
-
-    ''' Create the Encoder '''
-    encoder = Model(input_layer, encoder_layer)
-
-    ''' Create the Decoder '''
-    encoded_input = Input(shape=(hidden_layer_nodes,))
-    decoder_layer = autoencoder.layers[-1]
-    decoder = Model(encoded_input, decoder_layer(encoded_input))
-    
-    autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
-    
-    autoencoder.fit(train,
-                train,
-                epochs=10, # run through the training data 10 times
-                batch_size=100, # use batches of 100 before making changes
-                shuffle=True, # shuffle the training data to prevent biasing
-                validation_data=(test, test), # use our test data set as validation
-                verbose = 0) # hide the output while training
-    
-    encoded_test = encoder.predict(test) # encode our features
-    decoded_test = decoder.predict(encoded_test) # decode our encoded features
-    
-    error = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error across each feature 
-    
-    return test, encoded_test, decoded_test, error
-```
-
-
-```python
-errors = []
-for i in tnrange(1,6):
-    data = np.random.rand(1000000, 2**i) # Generate 1,000,000 random data points with 50 features each
-    errors.append(simple_autoencoder(2**i, data)[-1])
-```
-
-
-```python
-fig, ax = plt.subplots(figsize = (15,8))
-bins = np.linspace(0, np.max(errors), 200)
-
-for i, vals in enumerate(errors):
-    ax.hist(vals, bins = bins, align = 'mid', edgecolor = 'black', alpha = 0.75, label = '%s Input Features: $\sigma = %s$' % (2**(i+1), round(np.std(vals), 3)))
-    
-ax.set_title('Error Distributions as Functions of Input Features', fontsize = 24)
-ax.set_xlabel('Error', fontsize = 20)
-ax.set_ylabel('Number of Counts', fontsize = 20)
-ax.grid(linestyle = '--')
-ax.legend(fontsize = 18)
-plt.show()
-```
-
-
+Before we move on from using data without any patterns, let's first get an idea of how important the number of features is when passed through our simple model of 1 encoding layer and 1 decoding layer.
     
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_21_0.png)
     
-
+Now this is interesting! The performance of the model becomes worse as the number of features is increased. Again this makes a lot of sense! Since our generated data is uncorrelated and impossible to deduce any patterns from, the error will increase exponentially as the number of features increases.
 
 # What About More Correlated Data?
 
+Alright now that we have had our fun with some useless data, what happens when our data is a little more correlated? We will again generate our own data, but this time let's create a bunch of sinusoids with a random phase.
 
 ```python
 data = []
@@ -333,43 +262,10 @@ for j in range(1000000):
 data = np.array(data)
 ```
 
+Let's again look at how the number of features affects the output:
 
-```python
-errors = []
-for i in tnrange(1,6):
-
-    num_features = 2**i
-    data = []
-    for j in range(1000000):
-        random_start = np.random.rand()*2*np.pi
-        v_list = np.linspace(random_start, random_start+, num_features)
-        data.append(np.sin(v_list)**2)
-    data = np.array(data)
-    
-    errors.append(simple_autoencoder(2**i, data)[-1])
-```
-
-
-```python
-fig, ax = plt.subplots(figsize = (15,8))
-bins = np.linspace(0, np.max(errors), 200)
-
-for i, vals in enumerate(errors):
-    ax.hist(vals, bins = bins, align = 'mid', edgecolor = 'black', alpha = 0.75, label = '%s Input Features: $\sigma = %s$' % (2**(i+1), round(np.std(vals), 3)))
-    
-ax.set_title('Error Distributions as Functions of Input Features', fontsize = 24)
-ax.set_xlabel('Error', fontsize = 20)
-ax.set_ylabel('Number of Counts', fontsize = 20)
-ax.grid(linestyle = '--')
-ax.legend(fontsize = 18)
-plt.show()
-```
-
-
-    
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_25_0.png)
     
-
 
 # Now Do the Number of Layers Matter?
     
@@ -379,6 +275,7 @@ plt.show()
 
 # The MNIST Dataset
 
+As promised, now we will play with some actual data, and what better candidate than the "Hello World" dataset of machine learning - MNIST. The MNIST dataset is composed of hundreds of thousands of handwritten digits that are labeled with their corresponding digit. Let's load in the data, normalize the pixel values to be between 0 and 1, and reshape the images from their standard 28x28 format to a more machine learning friendly 1x784.
 
 ```python
 (x_train, _), (x_test, _) = mnist.load_data()
@@ -386,144 +283,16 @@ x_train = (x_train.astype('float32') / 255.).reshape(len(x_train), len(x_train[0
 x_test = (x_test.astype('float32') / 255.).reshape(len(x_test), len(x_test[0])*len(x_test[0][0]))
 ```
 
-
-```python
-input_dim = len(x_train[0]) # input dimension is equal to the number of features
-hidden_layer_nodes = 32 # the number of nodes to use in the hidden layer
-
-''' Create the Autoencoder '''
-input_layer = Input(shape=(input_dim,))
-encoder_layer = Dense(hidden_layer_nodes, activation='relu')(input_layer)
-decoder_layer = Dense(input_dim, activation='sigmoid')(encoder_layer)
-autoencoder = Model(input_layer, decoder_layer)
-
-''' Create the Encoder '''
-encoder = Model(input_layer, encoder_layer)
-
-''' Create the Decoder '''
-encoded_input = Input(shape=(hidden_layer_nodes,))
-decoder_layer = autoencoder.layers[-1]
-decoder = Model(encoded_input, decoder_layer(encoded_input))
-```
-
-
-```python
-autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
-```
-
-
-```python
-autoencoder.fit(x_train, x_train,
-                epochs=10,
-                batch_size=256,
-                shuffle=True,
-                validation_data=(x_test, x_test), 
-                verbose = 0)
-```
-
-
-
-```python
-encoded_imgs = encoder.predict(x_test)
-decoded_imgs = decoder.predict(encoded_imgs)
-```
-
-
-```python
-n = 10  # how many digits we will display
-plt.figure(figsize=(20, 4))
-for i in range(n):
-    # display original
-    ax = plt.subplot(2, n, i + 1)
-    plt.imshow(x_test[i].reshape(28, 28))
-    plt.gray()
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-    
-    # display reconstruction
-    ax = plt.subplot(2, n, i + 1 + n)
-    plt.imshow(decoded_imgs[i].reshape(28, 28))
-    plt.gray()
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-plt.show()
-```
-
-
+For the model we will follow the same methodlogy as for the simple model from above, having one encoder layer and one decoder layer. The hidden layer in the model will contain 32 nodes, essentially performing a dimensionality reduction of 784/32 = 24.5. After running the model on the new training data, we can then look at some of the results:
     
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_34_0.png)
     
-
-
-
-```python
-error = np.sum(abs(x_test - decoded_imgs), axis = 1) # compute the absolute error across each feature 
-
-fig, ax = plt.subplots(figsize = (15,8))
-bins = np.linspace(min(error), max(error), 100)
-ax.hist(error, bins = bins, align = 'mid', edgecolor = 'black')
-ax.set_title('Complex Autoencoder Results', fontsize = 20)
-ax.set_xlabel('Error', fontsize = 18)
-ax.set_ylabel('Number of Counts', fontsize = 18)
-ax.grid(linestyle = '--')
-plt.show()
-```
-
-
-```python
-Dict = {} # create dictionary to map each index to its error value 
-for i in range(len(error)): 
-    Dict[i] = error[i]
-```
-
-
-```python
-worst = list(dict(sorted(Dict.items(), key=lambda item: item[1], reverse = True))) # pick out the worst 10 reconstructions
-
-plt.figure(figsize=(20, 4))
-for i in range(10):
-    ax = plt.subplot(2, 10, i + 1)
-    plt.imshow(x_test[worst[i]].reshape(28, 28)) # display the original
-    plt.gray()
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-    
-    ax = plt.subplot(2, 10, i + 11)
-    plt.imshow(decoded_imgs[worst[i]].reshape(28, 28)) # display reconstruction
-    plt.gray()
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-    
-plt.show()    
-```
-
-
+The original images can be seen on the top row, and the reconstructed images after being passed through the autoencoder can be seen on the bottom row. In general, the reconstructed images strongly resemble their originals, with the values of some of the pixels having been either enhanced or reduced. We can additionally select out some of the images with the worst performance:
     
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_37_0.png)
     
+As well as some of the images with the best performance:
 
-
-
-```python
-best = list(dict(sorted(Dict.items(), key=lambda item: item[1]))) # pick out the best 10 reconstructions
-
-plt.figure(figsize=(20, 4))
-for i in range(10):
-    ax = plt.subplot(2, 10, i + 1)
-    plt.imshow(x_test[best[i]].reshape(28, 28)) # display the original
-    plt.gray()
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-    
-    ax = plt.subplot(2, 10, i + 11)
-    plt.imshow(decoded_imgs[best[i]].reshape(28, 28)) # display reconstruction
-    plt.gray()
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-    
-plt.show()    
-```
-
-
-    
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_38_0.png)
+
+Interestingly enough, almost all of the images that contain a '1' are the easiest for the model to reconstruct, presumably since this number is the simplest of the given digits. There is no complex structure to disect, such as loops or curves, allowing for.
