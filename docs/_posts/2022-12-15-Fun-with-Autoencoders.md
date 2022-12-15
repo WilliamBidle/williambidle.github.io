@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Fun with Autoencoders"
-date:   2022-12-05 22:13:00 -0500
+date:   2022-12-15 12:13:00 -0500
 category: programming-projects
 author: William Bidle
 comments: true
@@ -9,10 +9,6 @@ tags: artificial-intelligence machine-learning autoencoders python
 image: /assets/images/posts/Autoencoder.png
 
 ---
-<script
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-  type="text/javascript">
-</script>
 
 Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Keras architechture from Tensorflow in Python. All of the code for the project and generated figures can be found in the <a href="https://github.com/WilliamBidle/Fun-with-Autoencoders/blob/master/Fun_with_Autoencoders.ipynb" target = "_blank">Fun_with_Autoencoders</a> Jupyter Notebook located on my Github.
 
@@ -296,3 +292,8 @@ As well as some of the images with the best performance:
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_38_0.png)
 
 Interestingly enough, almost all of the images that contain a '1' are the easiest for the model to reconstruct, presumably since this number is the simplest of the given digits. There is no complex structure to disect, such as loops or curves, allowing for.
+
+<script
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  type="text/javascript">
+</script>
