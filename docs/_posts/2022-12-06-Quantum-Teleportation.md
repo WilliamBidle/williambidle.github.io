@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Quantum Teleportation with IBM's Qiskit"
-date:   2022-12-20 22:13:00 -0500
+date:   2023-12-20 22:13:00 -0500
 category: programming-projects
 author: William Bidle
 comments: true
