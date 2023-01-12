@@ -43,6 +43,7 @@ google_analytics: UA-187460509-1
 # Added a copyright by adding code to the footer.html file
 copyright: "William Bidle"
 
+url : https://williambidle.github.io
 # title-logo: /images/title-logo.jpg
 
 # Build settings
@@ -52,7 +53,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
