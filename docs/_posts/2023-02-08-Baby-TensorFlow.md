@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Baby TensorFlow"
-date:   2023-01-09 12:13:00 -0500
+date:   2023-02-08 11:13:00 -0500
 category: programming-projects
 author: William Bidle
 comments: true

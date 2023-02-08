@@ -4,5 +4,5 @@ title: Misc
 feed-type: misc
 permalink: /misc/
 ---
-Random Stuff!
+Here I post about some random things that I find interesting.
 

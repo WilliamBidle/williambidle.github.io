@@ -3,9 +3,13 @@ layout: default
 ---
 <article class="post">
 
+  <!-- <center> -->
+  <center>
   <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
   </header>
+  </center>
+  <!-- </center> -->
 
   <!-- This is for the about section, where we format pictures of ourselves and a breif description of the website -->
   {%- if page.image_Will -%}
@@ -19,9 +23,11 @@ layout: default
 
   <!-- ----------------------------------------------------------------------------------------------------------- -->
 
+  <center>
   <div class="post-content">
     {{ content }}
   </div>
+  </center>
 
   {%- assign feedType = page.feed-type -%}
   {%- if feedType == "programming-projects" or feedType == "lets-talk-music" or feedType == "misc" -%}
@@ -35,7 +41,7 @@ layout: default
   {%-  endif -%}
 
   {%- assign feedType = page.feed-type -%}
-  {%- if feedType == "programming-projects" or feedType == "lets-talk-music" or feedType == "misc"-%}
+  {%- if feedType == "programming-projects" or feedType == "lets-talk-music" or feedType == "misc" -%}
     <div class="post-heading">
       <h2>Posts</h2>
     </div>
