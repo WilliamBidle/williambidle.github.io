@@ -5,18 +5,16 @@ date:   2022-12-15 12:13:00 -0500
 category: programming-projects
 author: William Bidle
 comments: true
-tags: artificial-intelligence machine-learning autoencoders python
+tags: artificial-intelligence machine-learning autoencoders python tensorflow data-visualization
 image: /assets/images/posts/Autoencoder.png
 
 ---
 
-Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Keras architechture from Tensorflow in Python. All of the code for the project and generated figures can be found in the <a href="https://github.com/WilliamBidle/Fun-with-Autoencoders/blob/master/Fun_with_Autoencoders.ipynb" target = "_blank">Fun_with_Autoencoders</a> Jupyter Notebook located on my Github.
+Recently my girlfriend has been learning about autoencoders in a deep learning class she's taking for her master's degree and it's caught my interest. I decided to try my hand at creating some pretty basic autoencoder architectures, utilizing the Keras architechture from Tensorflow in Python. All of the code for the project and generated figures can be found in the <a href="https://github.com/WilliamBidle/Fun-with-Autoencoders" target = "_blank">Fun_with_Autoencoders</a> Jupyter Notebook located on my Github.
 
-# What is an Autoencoder?
+# **What is an Autoencoder?**
 
 An autoencoder is a type of neural network that is used in artificial intelligence to create efficient encodings of unlabeled data. The network hopes to learn as much as it can about the fundamental aspects of a given set of data by picking out some of the more important features or patterns that may exist. Therefore an autoencoder works to dimensionally reduce a set of data, similar to what is done in Principal Component Analysis (PCA). Among many things, these types of models excel at facial recognition, word detection, and as we shall see towards the end of this post, image reconstruction. 
-
-# Imports
 
 We can begin by importing all of the necessary packages, such as Keras for the machine learning, NumPy for data manipulation, and Matplotlib for visualizations.
 
@@ -38,7 +36,7 @@ import itertools
 from tqdm.notebook import tnrange 
 ```
 
-# Crude Model with Uncorrelated Data
+# **Crude Model with Uncorrelated Data**
 
  Before we can even discuss building a model, it is important to have some idea of what type of data we will be using. Now usually these types of tasks are great for feature reduction of images, and while we will get to that later, it might be a good starting point to just use some easy to control, randomly generated data, whose features are essentially uncorrelated. While this might not lead to any super interesting or meaningful results, there are still a few things we can look at such as how the number of features impacts the performance, as well as how different models stack up against each other. So, using NumPy, let's create 1,000,000 data points with 32 features that contain random values between 0 and 1:
 
@@ -119,7 +117,7 @@ Where the sum runs over the number of features N (in our case N = 32), $$y_i$$ i
 error = np.sum(abs(test - decoded_test), axis = 1) # compute the absolute error across each feature 
 ```
 
-Let's visualize the computed errors over all the test data in a histogram:
+Let's visualize the computed errors over the entire test data set (100,000 instances) in a histogram:
 
 ```python
 fig, ax = plt.subplots(figsize = (15,8))
@@ -134,12 +132,12 @@ plt.show()
 
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_9_0.png)
     
-A Gaussian distribution! This does somewhat make sense though as the model is trying to figure out patterns in data that ultimately has no patterns! and therefore can only do as good as the 
+A Gaussian distribution! This actually makes a lot of sense though, as the model is trying to figure out patterns in data that ultimately has no patterns! It can only try to minimize the average error across all instances, and there will be some instances where there error is much lower or much higher. 
 
 
-# More Complex Model with Uncorrelated Data
+# **More Complex Model with Uncorrelated Data**
 
-Now what if we tried the same thing with a more complex model? Let's use 4 encoding layers and 4 decoding layers, with each layer decreasing/increasing by a factor of 2 (i.e. 32 -> 16 -> 8 -> 4 -> 2 -> 4 -> 8 -> 16 -> 32). We will again use sigmoid activation functions as well as the same optimizer and loss function from the simple model:
+Now what if we tried the same thing with a more complex model? Would the results change at all? Let's use 4 encoding layers and 4 decoding layers, with each layer decreasing/increasing by a factor of 2 (i.e. 32 -> 16 -> 8 -> 4 -> 2 -> 4 -> 8 -> 16 -> 32). We will again use sigmoid activation functions as well as the same optimizer and loss function from the simple model:
 
 ```python
 input_dim = len(data[0]) # input dimension is equal to the number of features
@@ -231,23 +229,21 @@ ax.legend(fontsize = 18)
 plt.show()
 ```
 
-
-    
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_17_0.png)
     
-They're almost identical! We might have naively expect this more complex model to outperform the simple model, but clearly it doesn't matter how complex the model is if the data has no discernable patterns. Once again, we are reminded how important the quality of data is in machine learning problems!
+They're almost identical! We might have naively expected the more complex model to outperform the simple model, but clearly it doesn't matter how complex the model is if the data has no discernable patterns. Scientifically, we would say that neither model is accurate (the error is high), nor precise (there is a lot of spread). Once again, we are reminded how important the quality of data is in machine learning problems!
 
-# Does the Number of Features Matter?
+# **Do the Number of Features Matter?**
 
-Before we move on from using data without any patterns, let's first get an idea of how important the number of features is when passed through our simple model of 1 encoding layer and 1 decoding layer.
+Before we move on from using data without any patterns (i.e., useless), let's look at how important the number of features is when passed through our simple model of 1 encoding layer and 1 decoding layer from before:
     
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_21_0.png)
     
 Now this is interesting! The performance of the model becomes worse as the number of features is increased. Again this makes a lot of sense! Since our generated data is uncorrelated and impossible to deduce any patterns from, the error will increase exponentially as the number of features increases.
 
-# What About More Correlated Data?
+# **What About More Correlated Data?**
 
-Alright now that we have had our fun with some useless data, what happens when our data is a little more correlated? We will again generate our own data, but this time let's create a bunch of sinusoids with a random phase.
+Alright now that we have had our fun with some useless data, what happens when our data is a little more correlated? We will again generate our own data, but this time let's create a bunch of sinusoids with a random phase. This forces the data to have structure, as susequent data points will follow a pattern set by the sin function, and hopefully our autoencoder can pick up on it.
 
 ```python
 data = []
@@ -258,20 +254,23 @@ for j in range(1000000):
 data = np.array(data)
 ```
 
-Let's again look at how the number of features affects the output:
+We had some interesting results before looking at how the number of features affects the output, so let's see what happens here: 
 
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_25_0.png)
     
+It seems as though we are seeing a similar pattern from before, although this time, we can notice that both the errors and their respective spread along the x-axis are much lower than their counterparts from the previous example. This most certianly is a direct result of the fact that this time the data is correlated. 
 
-# Now Do the Number of Layers Matter?
+# **Now Do the Number of Layers Matter?**
     
+Lastly, we can again look at whether or not the number of layers in the network matters. Last time we saw that a simple network and a complex network yielded almost the same performance, so will anything change this time?
+
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_27_0.png)
-    
 
+Wow now this is actually really interesting! We are actually seeing that this time around for correlated data, the performance increases if we increase the complexity of the autoencoder. At 3 layers, the accuracy and performance is extremely good, with the results being within 1% of the actual values. The performance seems to get worse past this point, which may point to the network trying to pick up on features that may not actually matter within this dataset (i.e., sometimes the data might start negative, which doesn't really indicate anything important).
 
-# The MNIST Dataset
+# **The MNIST Dataset**
 
-As promised, now we will play with some actual data, and what better candidate than the "Hello World" dataset of machine learning - MNIST. The MNIST dataset is composed of hundreds of thousands of handwritten digits that are labeled with their corresponding digit. Let's load in the data, normalize the pixel values to be between 0 and 1, and reshape the images from their standard 28x28 format to a more machine learning friendly 1x784.
+Okay enough messing around. As promised, we will now play with some actual data, and what better candidate than the "Hello World" dataset of machine learning - MNIST. The MNIST dataset is composed of hundreds of thousands of handwritten digits that are labeled with their corresponding digit. Let's load in the data, normalize the pixel values to be between 0 and 1, and reshape the images from their standard 28x28 format to a more machine learning friendly 1x784.
 
 ```python
 (x_train, _), (x_test, _) = mnist.load_data()
@@ -291,7 +290,8 @@ As well as some of the images with the best performance:
 
 ![image]({{site.url}}/assets/images/posts/Fun_with_Autoencoders_files/Fun_with_Autoencoders_38_0.png)
 
-Interestingly enough, almost all of the images that contain a '1' are the easiest for the model to reconstruct, presumably since this number is the simplest of the given digits. There is no complex structure to disect, such as loops or curves, allowing for.
+Interestingly enough, almost all of the images that contain a '1' are the easiest for the model to reconstruct, presumably since this number is the simplest of the given digits, and doesn't really contain any complex structure, such as loops or curves. It seems as though it has the hardest time with any number that contains a loop, such as '0,' '6,' '8,' '9,' and occasionally '2' (depending on how it was written). 
+
 
 <script
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"

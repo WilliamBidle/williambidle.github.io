@@ -1,5 +1,5 @@
 ---
 layout: tagpage
-tag: Silversun-Pickups
+tag: indie-pop
 robots: noindex
 ---
