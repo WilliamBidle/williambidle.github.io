@@ -13,7 +13,7 @@ Here I showcase some of the noteworthy written work I have done related to my re
 
 # **Artificial Intelligence:**
 - <a href="/assets/SentencePaper.pdf" target="_blank">Sentence Autocompletion with a GRU-Based RNN</a> (grad)
-- Recoloring Black & White Images Using a CNN (Coming Soon!) (grad)
+- <a href="/assets/Recolorization.pdf" target="_blank">Recoloring Black & White Images Using a CNN</a> (undergrad)
 - <a href="/assets/AI_Project1_Combined.pdf" target="_blank">AI Maze Search</a> (undergrad)
 - <a href="/assets/AI_Project2_Combined.pdf" target="_blank">AI Minesweeper Solver</a> (undergrad)
 - <a href="/assets/AI_Project4_Combined.pdf" target="_blank">Picture Recolorization via Clustering Techniques</a> (undergrad)
