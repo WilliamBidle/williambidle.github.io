@@ -20,7 +20,7 @@ $brand-color:      #2a7ae2 !default;
 
 // code I wrote for the background gradient
 body {
-  background-image: url("/assets/images/site-background.png");
+  // background-image: url("/assets/images/site-background.png"); // uncomment this line to use the background gradient
   background-size: cover;
   // background-image: linear-gradient(to bottom, azure, mediumaquamarine);
   // background-image: linear-gradient(to bottom, azure, lightskyblue);

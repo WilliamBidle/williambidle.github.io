@@ -1,5 +1,5 @@
 ---
 layout: tagpage
-tag: diy
+tag: math
 robots: noindex
 ---

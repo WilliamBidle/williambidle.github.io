@@ -1,5 +1,5 @@
 ---
 layout: tagpage
-tag: PC
+tag: neural-networks
 robots: noindex
 ---
