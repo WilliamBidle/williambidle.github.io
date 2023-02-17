@@ -35,7 +35,7 @@ model.compile(optimizer='SGD',
 
 See how easy that is? You are able to add layers in a very simple and intuitive manner, and have a ton of control over the different hyperparameters, such as the number of nodes per layer, the activation functions to use, what metrics to track, and so much more. Practically every situation involving machine learning can utilize TensorFlow to perform the task at hand. Towards the end of the article we will revist TensorFlow and compare some working examples to ones done in our own architecture. 
 
-Now I won't be going over any of the mathematics used in building our model, but for an discussion on how neural networks work in general, check out my post on <a href="/programming-projects/2023/01/12/Demystifying-Machine-Learning.html" title="Demystifying Machine Learning" target = "_blank">Demystifying Machine Learning</a>.
+Now I won't be going over any of the mathematics used in building our model, but for an discussion on how neural networks work in general, check out my post on <a href="/programming-projects/2023/02/07/Demystifying-Machine-Learning.html" title="Demystifying Machine Learning" target = "_blank">Demystifying Machine Learning</a>.
 
 # Baby TensorFlow
 

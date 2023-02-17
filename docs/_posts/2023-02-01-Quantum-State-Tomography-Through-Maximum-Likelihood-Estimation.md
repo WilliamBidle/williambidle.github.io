@@ -11,7 +11,9 @@ image: /assets/images/posts/QST Post/QST_Website_Post.png
 
  I recently just finished up my Master's Degree in Physics at Stony Brook University and wanted to summarize some of the research I had done during my time there on Quantum State Tomography (QST). I don't actually expect many people outside (or even inside for that matter) the field of physics to understand most of the technical details of QST, so the idea of this post is to make my work as accessible as possible to those who are interested in learning more. An in depth summary can be found in my <a href="/assets/Quantum_State_Tomography.pdf" target="_blank">Master's Thesis</a>, and all of the corresponding code for the project can be found on my <a href="https://github.com/WilliamBidle/Quantum-State-Estimation" target = "_blank">Github</a>.
 
-# **What is all of this Quantum Nonsense?**
+More Coming Soon!
+
+<!-- # **What is all of this Quantum Nonsense?**
 
 Before I begin even talking about QST, I think it might be a good idea to first discuss what we mean when we use the word quantum. The word quantum certainly gets thrown around a lot now adays, and in some cases  (see Antman)
 
@@ -38,4 +40,4 @@ Now the process of using Maximum Likelihood Estimation (MLE) to predict a quantu
 
 This is essentially the basis for MLE applied to quantum states of light. Instead of imaging some 3D shape, we are instead imaging the complex quantum state itself, and hoping to find its characteristic 'shape' in some complex phase-space. Much like in our example, our confidence in predicting the correct quantum state is directly proportional to the number of 'images' we are able to take of it from many different angles. 
 
-# **Some Cool Visuals**
+# **Some Cool Visuals** -->
